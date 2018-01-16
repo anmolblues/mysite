@@ -5,6 +5,5 @@ from . import views
 urlpatterns = [
     # ex: blankurl like the homepage or http://127.0.0.1:8000/
     url(r'^$', views.welcome, name='welcome'),
-    # ex: /test/
-    url(r'^$', views.testpage, name='testpage ')
+
 ]
