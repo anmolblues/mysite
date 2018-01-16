@@ -13,6 +13,11 @@ def welcome(request):
     context = {}
     return render(request, 'polls/welcome.html', context)
 
+def testpage(request):
+    return HttpResponse("Test message")
+    #context = {}
+    #return render(request, 'polls/testpage.html', context)
+
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
@@ -23,7 +28,7 @@ class IndexView(generic.ListView):
         #return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
         # Filter not to display question that don't have Choice or publish_date is in future.
-        return Question.objects.exclude(Q(choice__isnull=True)|Q(pub_date__gt=timezone.now())).order_by('-pub_date')[:5]
+        return Question.objects.exclude(Q(choice__isnull=True)|Q(pub_date__gt=timezone.now())).order_by('id')[:5]
 
 class DetailView(generic.DetailView):
     model = Question
@@ -61,7 +66,6 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-
 
 
 # OLD VIEW NOT USED ANYMORE. THEY WERE REPLACED BY CLASSES ABOVE
